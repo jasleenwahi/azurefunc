@@ -35,12 +35,12 @@ public class EventHubTriggerJava {
     ) {
             List<Car> list = new ArrayList<>();
             for(Car details: message){
-                context.getLogger().info("Raw Car Data : " + details);
+                context.getLogger().info("Raw Cars Data : " + details);
                 Double updatedMileage = TransformData.updateMileage(details.getMileage());
                 Double updatedPrice = TransformData.updatePrice(details.getPrice());
                 details.setMileage(updatedMileage);
                 details.setPrice(updatedPrice);
-                context.getLogger().info("Transformed Car Data : " + details);
+                context.getLogger().info("Transformed Cars Data : " + details);
                 details.setCarId(details.getCarId()+1);
                 list.add(details);
             }
