@@ -1,6 +1,6 @@
-package org.example.functions;
+package com.nashtech.functions.util;
 
-public class TransformData {
+public class CarUtil {
 
     /**
      * Converts the given mileage value from miles to kilometers per mile.
