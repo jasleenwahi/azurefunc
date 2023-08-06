@@ -19,7 +19,7 @@ public class EventHubTriggerJava {
     @FunctionName("EventHubTriggerJava")
     public void run(
             @EventHubTrigger(name = "message",
-                    eventHubName = "myeventhub",
+                    eventHubName = "eventhub",
                     connection = "connectionString",
                     consumerGroup = "$Default",
                     cardinality = Cardinality.MANY)
