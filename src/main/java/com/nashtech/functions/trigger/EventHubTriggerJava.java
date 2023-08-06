@@ -6,6 +6,7 @@ import com.nashtech.functions.util.CarUtil;
 import com.nashtech.functions.model.Car;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Azure Functions with Event Hub trigger.
@@ -20,37 +21,29 @@ public class EventHubTriggerJava {
     public void run(
             @EventHubTrigger(name = "message",
                     eventHubName = "myeventhub",
-                    connection = "connectionString",
+                    connection = "eventHubConnectionString",
                     consumerGroup = "$Default",
                     cardinality = Cardinality.MANY)
             List<Car> carDetails,
             @CosmosDBOutput(
                     name = "updatedCarDetails",
-                    databaseName = "CarFactory",
-                    collectionName = "DbContainer",
-                    connectionStringSetting = "ConnectionStringSetting",
+                    databaseName = "az-car-db",
+                    collectionName = "az-car-collection",
+                    connectionStringSetting = "cosmosDbConnectionString",
                     createIfNotExists = true
             )
             OutputBinding<List<Car>> updatedCarDetails,
             final ExecutionContext context
     ) {
-        try {
-            List<Car> carDetailsList = new ArrayList<>();
-            carDetailsList = carDetails.stream()
-                    .map(details -> {
-                        context.getLogger().info("Car Data: " + details);
-                        Double updatedMileage = CarUtil.updateMileage(details.getMileage());
-                        Double updatedPrice = CarUtil.updatePrice(details.getPrice());
-                        details.setMileage(updatedMileage);
-                        details.setPrice(updatedPrice);
-                        context.getLogger().info("Transformed Car Data: " + details);
-                        details.setCarId(details.getCarId() + 1);
-                        return details;
-                    }).toList();
+
+        List<Car> carDetailsList = carDetails.stream()
+                    .map(car -> {
+                            car.setMileage(CarUtil.updateMileage(car.getMileage()));
+                            car.setPrice(CarUtil.updatePrice(car.getPrice()));
+                            return car;
+                    }).collect(Collectors.toList());
             updatedCarDetails.setValue(carDetailsList);
-        } catch (Exception exception) {
-            context.getLogger().info(exception.getMessage());
-        }
+
     }
 
 

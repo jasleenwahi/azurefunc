@@ -11,10 +11,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>17</java.version>
+        <java.version>1.8</java.version>
         <azure.functions.maven.plugin.version>1.24.0</azure.functions.maven.plugin.version>
         <azure.functions.java.library.version>1.3.0</azure.functions.java.library.version>
-        <functionAppName>azure-car-factory-1689236556341</functionAppName>
+        <functionAppName>azure-car-factory</functionAppName>
     </properties>
 
     <dependencies>
@@ -67,15 +67,11 @@
 
                     <!-- Whether to disable application insights, default is false -->
                     <!-- refers https://github.com/microsoft/azure-maven-plugins/wiki/Azure-Functions:-Configuration-Details for all valid configurations for application insights-->
-                    <!-- <disableAppInsights></disableAppInsights> -->
                     <runtime>
                         <!-- runtime os, could be windows, linux or docker-->
                         <os>windows</os>
                         <javaVersion>17</javaVersion>
-                        <!-- for docker function, please set the following parameters -->
-                        <!-- <image>[hub-user/]repo-name[:tag]</image> -->
-                        <!-- <serverId></serverId> -->
-                        <!-- <registryUrl></registryUrl>  -->
+
                     </runtime>
                     <appSettings>
                         <property>
