@@ -28,7 +28,7 @@ public class EventHubTriggerJava {
                     name = "updatedCarDetails",
                     databaseName = "CarFactory",
                     collectionName = "DbContainer",
-                    connectionStringSetting = "ConnectionStringSetting",
+                    connectionStringSetting = "connectionStringSetting",
                     createIfNotExists = true
             )
             OutputBinding<List<Car>> updatedCarDetails,
