@@ -25,8 +25,10 @@ on:
 env:
   AZURE_FUNCTIONAPP_NAME: 'CarFactoryAzFunction'   # set this to your function app name on Azure
   POM_XML_DIRECTORY: '.'                    # set this to the directory which contains pom.xml file
-  JAVA_VERSION: '17'                         # set this to the java version to use (e.g. '8', '11', '17')
-
+  JAVA_VERSION: '17'# set this to the java version to use (e.g. '8', '11', '17')
+  CONNECTION_STRING: ${{secrets.connectionString}}
+  CONNECTION_STRING_SETTING: ${{secrets.ConnectionStringSetting}}
+  
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest # For Linux, use ubuntu-latest
