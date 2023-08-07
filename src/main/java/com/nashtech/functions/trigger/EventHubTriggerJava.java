@@ -44,7 +44,7 @@ public class EventHubTriggerJava {
                         Double updatedPrice = CarUtil.updatePrice(details.getPrice());
                         details.setMileage(updatedMileage);
                         details.setPrice(updatedPrice);
-                        context.getLogger().info("Transformed Car Data: " + details);
+                        context.getLogger().info("Transformed Car's Data: " + details);
                         details.setCarId(details.getCarId() + 1);
                         return details;
                     }).toList();
