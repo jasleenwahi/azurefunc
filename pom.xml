@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <azure.functions.maven.plugin.version>1.24.0</azure.functions.maven.plugin.version>
         <azure.functions.java.library.version>1.3.0</azure.functions.java.library.version>
         <functionAppName>azure-car-factory</functionAppName>
@@ -42,8 +42,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>17</source>
+                    <target>17</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
@@ -55,12 +55,12 @@
                     <!-- function app name -->
                     <appName>${functionAppName}</appName>
                     <!-- function app resource group -->
-                    <resourceGroup>java-functions-group</resourceGroup>
+                    <resourceGroup>az-nashtech-resource-group</resourceGroup>
                     <!-- function app service plan name -->
-                    <appServicePlanName>java-functions-app-service-plan</appServicePlanName>
+                    <appServicePlanName>functionAppNashtech-plans</appServicePlanName>
                     <!-- function app region-->
                     <!-- refers https://github.com/microsoft/azure-maven-plugins/wiki/Azure-Functions:-Configuration-Details#supported-regions for all valid values -->
-                    <region>westus</region>
+                    <region>eastus</region>
                     <!-- function pricingTier, default to be consumption if not specified -->
                     <!-- refers https://github.com/microsoft/azure-maven-plugins/wiki/Azure-Functions:-Configuration-Details#supported-pricing-tiers for all valid values -->
                     <!-- <pricingTier></pricingTier> -->

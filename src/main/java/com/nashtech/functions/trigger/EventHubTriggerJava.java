@@ -20,14 +20,14 @@ public class EventHubTriggerJava {
     @FunctionName("EventHubTriggerJava")
     public void run(
             @EventHubTrigger(name = "message",
-                    eventHubName = "myeventhub",
+                    eventHubName = "eventhub",
                     connection = "connectionString",
                     consumerGroup = "$Default",
                     cardinality = Cardinality.MANY)
             List<Car> carDetails,
             @CosmosDBOutput(
                     name = "updatedCarDetails",
-                    databaseName = "az-car-db",
+                    databaseName = "az-nashtech-db",
                     collectionName = "az-car-collection",
                     connectionStringSetting = "ConnectionStringSetting",
                     createIfNotExists = true
@@ -35,14 +35,23 @@ public class EventHubTriggerJava {
             OutputBinding<List<Car>> updatedCarDetails,
             final ExecutionContext context
     ) {
-        context.getLogger().info("Java Event Hub trigger function executed.");
-        List<Car> collection = carDetails.stream()
-                .map(car -> {
-                    car.setMileage(CarUtil.updateMileage(car.getMileage()));
-                    car.setPrice(CarUtil.updatePrice(car.getPrice()));
-                    return car;
-                }).collect(Collectors.toList());
-        updatedCarDetails.setValue(collection);
+        try {
+            List<Car> carDetailsList = new ArrayList<>();
+            carDetailsList = carDetails.stream()
+                    .map(details -> {
+                        context.getLogger().info("Car Data: " + details);
+                        Double updatedMileage = CarUtil.updateMileage(details.getMileage());
+                        Double updatedPrice = CarUtil.updatePrice(details.getPrice());
+                        details.setMileage(updatedMileage);
+                        details.setPrice(updatedPrice);
+                        context.getLogger().info("Transformed Car Data: " + details);
+                        details.setCarId(details.getCarId() + 1);
+                        return details;
+                    }).toList();
+            updatedCarDetails.setValue(carDetailsList);
+        } catch (Exception exception) {
+            context.getLogger().info(exception.getMessage());
+        }
     }
 
 
